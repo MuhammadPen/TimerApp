@@ -1,6 +1,8 @@
 package com.muhammadpen.timerapp;
 
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +13,10 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     SeekBar timerSlider;
-    Button timerStartButton;
+    Button timerControlButton;
     TextView timerTextView;
+    boolean timerIsActive = false;
+    CountDownTimer timeCounter;
 
     public void timerUpdate(int progress){
         int timerMinutes = (int) progress / 60;
@@ -23,23 +27,38 @@ public class MainActivity extends AppCompatActivity {
     }
         public void timerButtonPress(View view) {
 
-            new CountDownTimer(timerSlider.getProgress() , 1000){
+            if (timerIsActive = false) {
+                timerIsActive = true;
+                timerSlider.setEnabled(false);
+                timerControlButton.setText("Stop");
 
-                @Override
-                public void onTick(long l) {
+                timeCounter = new CountDownTimer(timerSlider.getProgress() * 1000 + 100, 1000) {
 
-                    timerUpdate((int) l);
+                    @Override
+                    public void onTick(long l) {
 
-                }
+                        timerUpdate((int) l / 1000);
 
-                @Override
-                public void onFinish() {
+                    }
 
-                }
-            };
+                    @Override
+                    public void onFinish() {
 
+                        timerTextView.setText("0:00");
+                        MediaPlayer timerEndSound = MediaPlayer.create(getApplicationContext(), R.raw.torturesound);
+                        timerEndSound.start();
+                    }
+                }.start();
+
+            }else {
+                timerTextView.setText("0:30");
+                timerSlider.setProgress(30);
+
+                timerControlButton.setText("Start");
+                timerSlider.setEnabled(true);
+                timerIsActive = false;
+            }
         }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         timerSlider = (SeekBar) findViewById(R.id.timerSeekBar);
-        timerStartButton = (Button) findViewById(R.id.timerStartButton);
+        timerControlButton = (Button) findViewById(R.id.timerControlButton);
         timerTextView = (TextView) findViewById(R.id.timerTextView);
 
         timerSlider.setMax(600);
-        timerSlider.setProgress(0);
+        timerSlider.setProgress(30);
 
         timerSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
