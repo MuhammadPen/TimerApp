@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TimerApp.iml" filepath="$PROJECT_DIR$/TimerApp.iml" />
+      <module fileurl="file://C:\Users\PEN\Documents\GitHub\TimerApps\TimerApp.iml" filepath="C:\Users\PEN\Documents\GitHub\TimerApps\TimerApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TimerApps.iml" filepath="$PROJECT_DIR$/TimerApps.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\PEN\Documents\GitHub\TimerApps\app\app.iml" filepath="C:\Users\PEN\Documents\GitHub\TimerApps\app\app.iml" />
     </modules>
   </component>
 </project>
